@@ -1,36 +1,16 @@
 package transport;
 
-public class Car {
-    private final String brand;
-    private final String model;
-    private final int productionYear;
-    private final String productionCountry;
+public class Car extends Transport {
+
     private final String carCase;
     private final int numberOfSeats;
     private double engineVolume;
-    private String color;
     private String transmission;
     private String registrationNumber;
     private boolean summerTires;
     private Key key;
 
     //-----------------------------------------------------------------------------------------------------
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public int getProductionYear() {
-        return productionYear;
-    }
-
-    public String getProductionCountry() {
-        return productionCountry;
-    }
 
     public String getCarCase() {
         return carCase;
@@ -52,14 +32,6 @@ public class Car {
         } else {
             this.engineVolume = 1.5;
         }
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = validOrDefault(color, "white");
     }
 
     public String getTransmission() {
@@ -101,15 +73,10 @@ public class Car {
 
     public Car(String brand, String model, double engineVolume, String color, int productionYear,
                String productionCountry, String carCase, int numberOfSeats, String transmission,
-               String registrationNumber, boolean summerTires, Key key) {
-
-        this.brand = validOrDefault(brand, "default");
-        this.model = validOrDefault(model, "не указана");
-        this.productionCountry = validOrDefault(productionCountry, "не указана");
+               String registrationNumber, boolean summerTires, Key key, int maxSpeed) {
+        super(brand, model, productionYear, productionCountry, color, maxSpeed);
         this.carCase = validOrDefault(carCase, "по умолчанию Седан");
-        this.productionYear = validOrDefault2(productionYear, 2000);
         this.numberOfSeats = validOrDefault2(numberOfSeats, 0);
-        setColor(color);
         setTransmission(transmission);
         setRegistrationNumber(registrationNumber);
         setEngineVolume(engineVolume);
@@ -169,8 +136,7 @@ public class Car {
     //-----------------------------------------------------------------------------------------------------
     @Override
     public String toString() {
-        return brand + " " + model + ", " + productionYear + " года выпуска, сборка " + productionCountry +
-                ", цвет " + color + ", объем двигателя " + engineVolume + " л., кузов " + carCase + ", "
+        return super.toString() + ", объем двигателя " + engineVolume + " л., кузов " + carCase + ", "
                 + numberOfSeats + " мест, " + transmission + " коробка передач, на " +
                 (summerTires ? "летней" : "зимней") + " резине, гос.номер " + registrationNumber + ", авто " + key;
     }
